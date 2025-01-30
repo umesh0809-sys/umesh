@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Click Counter Game</title>
+    <style>
+        body { text-align: center; font-family: Arial, sans-serif; }
+        button { font-size: 20px; padding: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Click the Button!</h1>
+    <p>Score: <span id="score">0</span></p>
+    <button onclick="increaseScore()">Click Me</button>
+
+    <script>
+        let score = 0;
+        function increaseScore() {
+            score++;
+            document.getElementById("score").textContent = score;
+        }
+    </script>
+</body>
+</html>
