@@ -3,22 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Click Counter Game</title>
+    <title>Click Counter Game (With Timer)</title>
     <style>
         body { text-align: center; font-family: Arial, sans-serif; }
-        button { font-size: 20px; padding: 10px; }
+        button { font-size: 20px; padding: 10px; margin-top: 10px; }
+        p { font-size: 18px; }
     </style>
 </head>
 <body>
-    <h1>Click the Button!</h1>
+    <h1>Click as Fast as You Can!</h1>
+    <p>Time Left: <span id="time">10</span> seconds</p>
     <p>Score: <span id="score">0</span></p>
-    <button onclick="increaseScore()">Click Me</button>
+    <button id="clickButton" onclick="increaseScore()" disabled>Click Me</button>
+    <br><br>
+    <button onclick="startGame()">Start Game</button>
+    <p id="message"></p>
 
     <script>
         let score = 0;
-        function increaseScore() {
-            score++;
+        let timeLeft = 10;
+        let timer;
+        let gameActive = false;
+
+        function startGame() {
+            score = 0;
+            timeLeft = 10;
+            gameActive = true;
             document.getElementById("score").textContent = score;
+            document.getElementById("time").textContent = timeLeft;
+            document.getElementById("message").textContent = "";
+            document.getElementById("clickButton").disabled = false;
+
+            timer = setInterval(() => {
+                timeLeft--;
+                document.getElementById("time").textContent = timeLeft;
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    document.getElementById("clickButton").disabled = true;
+                    gameActive = false;
+                    document.getElementById("message").textContent = Time's up! Your final score is ${score}.;
+                }
+            }, 1000);
+        }
+
+        function increaseScore() {
+            if (gameActive) {
+                score++;
+                document.getElementById("score").textContent = score;
+            }
         }
     </script>
 </body>
